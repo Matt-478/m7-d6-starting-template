@@ -24,7 +24,7 @@ class MainSearch extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    this.props.fetchJobs(this.baseEndpoint, this.state.query + '&limit=20');
+    this.props.fetchJobs(this.baseEndpoint, this.state.query);
   };
 
   render() {
