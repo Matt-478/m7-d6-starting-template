@@ -13,10 +13,10 @@ export const fetchJobs = (url, query) => {
     try {
       let resp = await fetch(url + query);
       if (resp.ok) {
-        const { jobs } = await resp.json();
+        const { data } = await resp.json();
         dispatch({
           type: "FETCH_JOBS",
-          payload: jobs,
+          payload: data,
         });
       } else {
         console.log("error");
