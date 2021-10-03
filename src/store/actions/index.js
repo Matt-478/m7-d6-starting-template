@@ -11,7 +11,7 @@ export const removeFromFav = (company) => ({
 export const fetchJobs = (url, query) => {
   return async (dispatch, getState) => {
     try {
-      let resp = await fetch(url + query);
+      let resp = await fetch(url + query + '&limit=20');
       if (resp.ok) {
         const { data } = await resp.json();
         dispatch({
