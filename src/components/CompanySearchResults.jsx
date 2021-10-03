@@ -17,9 +17,9 @@ export default class CompanySearchResults extends React.Component {
 
     getJobs = async () => {
         const response = await fetch(this.baseEndpoint + this.props.match.params.companyName)
-        const {jobs} = await response.json()
+        const { data } = await response.json()
 
-        this.setState({ jobs })
+        this.setState({ jobs: data })
     }
     
     render(){
