@@ -16,7 +16,7 @@ class MainSearch extends React.Component {
     jobs: [],
   };
 
-  baseEndpoint = "https://remotive.io/api/remote-jobs?search=";
+  baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?search=";
 
   handleChange = (e) => {
     this.setState({ query: e.target.value });
@@ -24,7 +24,7 @@ class MainSearch extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    this.props.fetchJobs(this.baseEndpoint, this.state.query);
+    this.props.fetchJobs(this.baseEndpoint, this.state.query + '&limit=20');
   };
 
   render() {
@@ -43,6 +43,7 @@ class MainSearch extends React.Component {
                 type="search"
                 value={this.state.query}
                 onChange={this.handleChange}
+                placeholder="type and press Enter"
               />
             </Form>
           </Col>
