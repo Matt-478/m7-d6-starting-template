@@ -14,19 +14,24 @@ import { useSelector, useDispatch } from "react-redux";
 const MainSearch = () => {
 
   const [query, setQuery] = useState("")
-  const [jobs, setJobs] = useState( [] )
+
+  const jobs = useSelector(state => state.jobs)
+  // previously forgot to get redux store state.jobs 
 
   const dispatch = useDispatch()
 
   const baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?search=";
 
   const handleChange = (e) => {
-    setQuery({ query: e.target.value });
+    setQuery( e.target.value );
+    //setQuery({ query: e.target.value });
+    //setQuery is going to set the value of query so, there's no need to call it again
+    // and the {} braces are making an object which also doesn't help
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(fetchJobs(baseEndpoint, query))
+    await  dispatch(fetchJobs(baseEndpoint, query))
   };
 
     return (
@@ -49,7 +54,11 @@ const MainSearch = () => {
             </Form>
           </Col>
           <Col xs={10} className="mx-auto mb-5">
-            {console.log(jobs)}
+            {
+              jobs.elements.map((data) => 
+               <JobResult key={uniqid()}  data={data} />
+              )
+            } 
           </Col>
         </Row>
       </Container>

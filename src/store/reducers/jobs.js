@@ -10,7 +10,7 @@ export default function jobsReducer(state = initialState.jobs, action) {
       return {
         ...state,
         elements: payload,
-      };
+      }
     default:
       return state;
   }
