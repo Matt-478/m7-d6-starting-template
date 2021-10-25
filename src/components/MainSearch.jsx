@@ -1,33 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import JobResult from "./JobResult";
 import uniqid from "uniqid";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import { fetchJobs } from "../store/actions";
+import { useSelector, useDispatch } from "react-redux";
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchJobs: (baseEndpoint, query) => dispatch(fetchJobs(baseEndpoint, query)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchJobs: (baseEndpoint, query) => dispatch(fetchJobs(baseEndpoint, query)),
+// });
 
-class MainSearch extends React.Component {
-  state = {
-    query: "",
-    jobs: [],
+
+const MainSearch = () => {
+
+  const [query, setQuery] = useState("")
+  const [jobs, setJobs] = useState( [] )
+
+  const dispatch = useDispatch()
+
+  const baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?search=";
+
+  const handleChange = (e) => {
+    setQuery({ query: e.target.value });
   };
 
-  baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?search=";
-
-  handleChange = (e) => {
-    this.setState({ query: e.target.value });
-  };
-
-  handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    this.props.fetchJobs(this.baseEndpoint, this.state.query);
+    dispatch(fetchJobs(baseEndpoint, query))
   };
 
-  render() {
     return (
       <Container>
         <Row>
@@ -38,24 +39,26 @@ class MainSearch extends React.Component {
             </Link>
           </Col>
           <Col xs={10} className="mx-auto">
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={handleSubmit}>
               <Form.Control
                 type="search"
-                value={this.state.query}
-                onChange={this.handleChange}
+                value={query}
+                onChange={handleChange}
                 placeholder="type and press Enter"
               />
             </Form>
           </Col>
           <Col xs={10} className="mx-auto mb-5">
-            {this.props.jobs.elements.map((jobData) => (
-              <JobResult key={uniqid()} data={jobData} />
-            ))}
+            {console.log(jobs)}
           </Col>
         </Row>
       </Container>
     );
-  }
-}
+} 
 
-export default connect((s) => s, mapDispatchToProps)(MainSearch);
+export default MainSearch
+
+             /* {this.jobs.elements.map((jobData) => (
+          //   // {jobs.elements.map((jobData) => ( */
+          //     <JobResult key={uniqid()} data={jobs} /> */}
+            // ))}

@@ -7,17 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 
-
-// const mapDispatchToProps = (dispatch) => ({
-//   addToFavourites: (company) => dispatch(addToFav(company)),
-//   removeFromFavourites: (company) => dispatch(removeFromFav(company)),
-// });
-
 const JobResult = ({ data }) => {
+  // jobDta is a prop
 
-  // defining state with new option
   const favourites = useSelector( state => state.favourites)
-  // defining dispatch
   const dispatch = useDispatch()
 
 
