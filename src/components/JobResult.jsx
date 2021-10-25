@@ -3,27 +3,29 @@ import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Star, StarFill } from "react-bootstrap-icons";
 import { addToFav, removeFromFav } from "../store/actions";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-const mapStateToProps = (s) => s;
 
-const mapDispatchToProps = (dispatch) => ({
-  addToFavourites: (company) => dispatch(addToFav(company)),
-  removeFromFavourites: (company) => dispatch(removeFromFav(company)),
-});
 
-function JobResult({
-  data,
-  favourites,
-  addToFavourites,
-  removeFromFavourites,
-}) {
+
+// const mapDispatchToProps = (dispatch) => ({
+//   addToFavourites: (company) => dispatch(addToFav(company)),
+//   removeFromFavourites: (company) => dispatch(removeFromFav(company)),
+// });
+
+const JobResult = ({ data }) => {
+
+  // defining state with new option
+  const favourites = useSelector( state => state.favourites)
+  // defining dispatch
+  const dispatch = useDispatch()
+
+
   const isFav = favourites.elements.includes(data.company_name);
-  console.log(isFav, favourites);
   const toggleFavourite = () => {
     isFav
-      ? removeFromFavourites(data.company_name)
-      : addToFavourites(data.company_name);
+      ? dispatch(removeFromFav(data.company_name))
+      : dispatch(addToFav(data.company_name))
   };
 
   return (
@@ -58,4 +60,4 @@ function JobResult({
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobResult);
+export default JobResult
