@@ -9,7 +9,6 @@ import { Provider } from 'react-redux'
 
 function App() {
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={MainSearch} />
@@ -17,7 +16,6 @@ function App() {
           <Route exact path='/:companyName' component={CompanySearchResults} />
         </Switch>
       </BrowserRouter>
-    </Provider>
   );
 }
 
